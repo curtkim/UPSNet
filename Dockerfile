@@ -9,8 +9,15 @@ RUN apt-get update \
 RUN pip install torch cython
 RUN apt-get install -y curl git unzip
 
+# for opencv
+RUN apt-get update \
+  && apt-get install -y libsm6 libxext6 libxrender-dev
+
+RUN pip install opencv-python Pillow easydict scipy matplotlib networkx
+
 COPY . /UPSNET
 WORKDIR /UPSNET
 
 RUN sh init.sh
 RUN sh download_weights.sh
+
